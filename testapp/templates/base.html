@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko-kr">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta name="description" content="Askbootstrap">
+   <meta name="author" content="Askbootstrap">
+   <title>DICE - Video Streaming Website HTML Template</title>
+   <!-- Favicon Icon -->
+   <link rel="icon" type="image/png" href="{%static 'images/logo.png'%}">
+   <!-- Bootstrap core CSS-->
+   <link href="{%static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+   <!-- Custom fonts for this template-->
+   <link href="{%static 'vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
+   <!-- Custom styles for this template-->
+   <link href="{%static 'css/osahan.css'%}" rel="stylesheet">
+   <!-- Owl Carousel -->
+   <link rel="stylesheet" href="{%static 'vendor/owl-carousel/owl.carousel.css'%}">
+   <link rel="stylesheet" href="{%static 'vendor/owl-carousel/owl.theme.css'%}">
+   <link href="{%static 'css/gp.css'%}" rel="stylesheet">
+
+   <!-- <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet"> -->
+   <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+</head>
+
+<body id="page-top" class="animated">
+      {%block bodycontent%}{%endblock%}
+      
+      <!-- Bootstrap core JavaScript-->
+      <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+      <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+      <!-- Core plugin JavaScript-->
+      <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js'%}"></script>
+      <!-- Owl Carousel -->
+      <script src="{% static 'vendor/owl-carousel/owl.carousel.js'%}"></script>
+      <!-- Custom scripts for all pages-->
+      <script src="{% static 'js/custom.js'%}"></script>
+      <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+      <!-- <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
+      <script src="https://vjs.zencdn.net/7.2.3/video.js"></script> -->
+      <script src="https://unpkg.com/video.js/dist/video.js"></script>
+      <script src="https://unpkg.com/videojs-flash/dist/videojs-flash.js"></script>
+      <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
+      {%block script%}{%endblock%}
+</body>
+
+</html>

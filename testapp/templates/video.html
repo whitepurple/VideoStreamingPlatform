@@ -1,0 +1,97 @@
+{% load static %}
+
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <title>test</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">DICE</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" aria-disabled="true">e스포츠</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" aria-disabled="true">음악</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </div>
+      <div> 
+        <button class="btn btn-outline-success" type="button" >Sign up</button>
+      </div>
+    </nav>
+    <!-- nav end -->
+    <div class="container" style="padding: 0px;">
+      <div style="display: table; margin-top: 30px; height: 600px;">
+        <div style="width: 70%; background-color: aquamarine; left: 0;display: table-cell;" >
+          <div style="width: 100%; height: 500; background-color: gray;text-align: center">
+            <img src={{img}}, 
+                  style="width: auto; 
+                        height: 100%; 
+                        max-height: 100%;">
+          </div>
+          <div class="media" style="background-color: rgb(58, 58, 58); 
+                                    width: 100%; height: 100px;">
+            <img src="{% static 'images/profile.png' %}" class="align-self-start mr-3" 
+                style="width: 57px; height: 57px; border-radius: 28.5px; margin: 20px;">
+            <div class="media-body" style="margin: auto;">
+              <h5 class="mt-0" style="color: aliceblue;">Name Surname</h5>
+              <button type="button" class="btn btn-light btn-sm">web</button>
+              <button type="button" class="btn btn-light btn-sm">illustration</button>
+              <button type="button" class="btn btn-light btn-sm">graphic</button>
+            </div>
+          </div>
+        </div>
+        <div style="width: 20%; height: 100%; background-color: white; 
+                    border: 2px solid black; display: table-cell;
+                    vertical-align: top;" >
+          <div style="display: table; height: 100%; width: 100%;">
+            <div style="background-color: whitesmoke; min-width: 230px; display: table-row; ">
+              <div style="padding-left:10px;padding-top: 10px; max-height: 530px; 
+                          overflow: scroll; overflow-x: hidden; scroll;">
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+                <p><span>testuser</span> : <span>testcomment</span></p>
+              </div>
+            </div>
+            <!-- <div style="display: table-row; height:auto;">&nbsp;</div> -->
+            <div style="bottom: 0;display: table-row; height: fit-content; padding-left: 5px;">
+              <div style="background-color: whitesmoke; display: table; text-align: center; margin-bottom: 10px;">
+                <div style="display: table-cell; vertical-align: middle;">
+                  <input placeholder="메세지 보내기">
+                </div>
+                <button type="submit" class="btn btn-primary" style="display: table-cell; width: 60px; margin-bottom:0px;">채팅</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

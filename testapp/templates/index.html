@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% extends 'homebase.html' %}
+
+{% load static %}
+
+{% block act_home %}active{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid pb-0 animated">
+   <div class="top-mobile-search">
+      <div class="row">
+         <div class="col-md-12">
+            <form class="mobile-search">
+               <div class="input-group">
+                  <input type="text" placeholder="Search for..." class="form-control">
+                  <div class="input-group-append">
+                     <button type="button" class="btn btn-dark"><i class="fas fa-search"></i></button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+
+   {% comment %} Video Block section {% endcomment %}
+   <div class="video-block section-padding">
+      <div class="row">
+
+         {% comment %} Dropdown menu {% endcomment %}
+         <div class="col-md-12">
+            <div class="main-title">
+               <h6>Videos</h6>
+            </div>
+         </div>
+
+         {% for user in users %}
+         {% comment %} Single Video block {% endcomment %}
+         <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="video-card">
+               <div class="video-card-image">
+                  <a class="play-icon" href="{% url 'stream' user.id %}"><i class="fas fa-play-circle"></i></a>
+                  <a href="{% url 'stream' user.id %}"><img class="img-fluid" src={% get_static_prefix %}{{user.profile}} alt=""></a>
+                  <div class="time">50</div>
+               </div>
+               <div class="video-card-body">
+                  <div class="video-title">
+                     <a href="{% url 'stream' user.id %}">{{user.username}}</a>
+                  </div>
+                  <div class="video-view">
+                     last login &nbsp;<i class="fas fa-calendar-alt"></i> {{user.last_login}}
+                  </div>
+               </div>
+            </div>
+         </div>
+         {%endfor%}
+
+      </div>
+   </div>
+   {% comment %} Video Block section end {% endcomment %}
+
+</div>
+<!-- /.container-fluid -->
+
+{% endblock %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends 'loginbase.html' %}
+{% load static %}
+
+{%block logincontent%}
+   <div class="login-main-left">
+      <div class="text-center mb-5 login-main-left-header pt-4">
+         <img src="{%static 'images/logo.png'%}" style="height:167.5px; width:auto;margin-bottom:20px;" class="img-fluid" alt="LOGO">
+         <h5 class="text-dark mt-3 mb-3">Welcome to DICE Video Streaming Website</h5>
+         <p>{{err}}</p>
+      </div>
+      <form action="", method="POST">
+         {% csrf_token %}
+         <div class="form-group">
+            <label>Username</label>
+            <input name="username" type="text" class="form-control" placeholder="Enter username">
+         </div>
+         <div class="form-group">
+            <label>Password</label>
+            <input name="password1" type="password" class="form-control" placeholder="Password">
+         </div>
+         <div class="form-group">
+            <label>Password again</label>
+            <input name="password2" type="password" class="form-control" placeholder="Password again">
+         </div>
+         <div class="mt-4">
+            <button type="submit" class="btn btn-outline-primary btn-block btn-lg">Sign Up</button>
+         </div>
+      </form>
+      <div class="text-center mt-5">
+         <p class="light-gray">Already have an Account? <a href="{% url 'login'%}">Sign In</a></p>
+      </div>
+   </div>
+{%endblock%}
