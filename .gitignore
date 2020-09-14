@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/python,django
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,django
+# Created by https://www.toptal.com/developers/gitignore/api/python,django,opencv,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,django,opencv,visualstudiocode
 
 ### Django ###
 *.log
@@ -146,6 +146,15 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+### OpenCV ###
+#OpenCV for Mac and Linux
+#build and release folders
+*/CMakeFiles
+*/CMakeCache.txt
+*/Makefile
+*/cmake_install.cmake
+.DS_Store
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 
@@ -205,6 +214,18 @@ dmypy.json
 
 # pytype static type analyzer
 
-# End of https://www.toptal.com/developers/gitignore/api/python,django
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
-test.mp4
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.toptal.com/developers/gitignore/api/python,django,opencv,visualstudiocode
+
+*.mp4
