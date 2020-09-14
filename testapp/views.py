@@ -61,9 +61,9 @@ def home(request):
     return render(request, 'index.html', {'users':users})
 
 @login_required(login_url='/login/')
-def stream(request, user_pk):
+def stream(request, username):
     alpha = 'qwerasdfzxcvtyuighjkbnmopl         '
-    user = DiceUser.objects.filter(id=user_pk).values('id','username','last_login')[0]
+    user = DiceUser.objects.filter(username=username).values('id','username','last_login')[0]
     user['profile'] = 'img/s{}.png'.format(user['id']%7+1)
     print(user)
     comments = []

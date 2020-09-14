@@ -6,7 +6,8 @@ class VideoCamera(object):
         # from a webcam, comment the line below out and use a video file
         # instead.
         # self.video = cv2.VideoCapture(0)
-        self.video = cv2.VideoCapture('http://192.168.0.62:8080/video')
+        # self.video = cv2.VideoCapture('http://192.168.0.62:8080/video')
+        self.video = cv2.VideoCapture('rtmp://218.150.183.58:1935/app/test')
         # self.video = cv2.VideoCapture('http://172.30.1.51:8080/video')
         # If you decide to use video.mp4, you must have this file in the folder
         # as the main.py.
