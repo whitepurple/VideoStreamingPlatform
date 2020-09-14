@@ -15,7 +15,7 @@ web source from [https://askbootstrap.com/](https://askbootstrap.com/)
 
 ## Server setting
 - Ubuntu 18.04.4 LTS (GNU/Linux 5.4.0-42-generic x86_64)
-- Install Nginx with nginx-rtmp-module [(link)](https://github.com/arut/nginx-rtmp-module)
+- Install Nginx with nginx-rtmp-module [(link)](https://github.com/arut/nginx-rtmp-module) [(bash)](https://github.com/whitepurple/VideoStreamingPlatform/blob/master/install_nginx_with_rtmp_module.sh)
 - 
 - 
 
