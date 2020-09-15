@@ -231,3 +231,5 @@ dmypy.json
 *.mp4
 nginx_install/
 
+model/DeepMask/src/weights/resnet18_KFace.pth
+model/DeepMask/src/weights/resnet18_pretrain.pth

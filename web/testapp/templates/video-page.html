@@ -6,26 +6,27 @@
 
 {% block content %}
 
-<div id="chatting" class="toggled animated">
+<div id="chatting" class="animated">
    <!-- Sidebar -->
    <div id="sidebar-wrapper" class="animated">
       <ul class="sidebar-nav">
          <div class="comment-sidebar">
             <div class="col-md-12">
                <div class="row">
+               
                   <div class="col-md-12">
                      <div class="row chat-nav">
-                        <button type="button" class="btn btn-light border-none chatcompress">
-                           <i class="fas fa-angle-double-right"></i>
-                        </button>
                         <div class="chat-title">
+                           <button type="button" class="btn btn-light border-none chatcompress displaynone">
+                              <i class="fas fa-angle-double-right"></i>
+                           </button>
                            <h6>Live Streaming Chatting</h6>
                         </div>
                      </div>
                   </div>
-                  
-                  <div class="col-md-12 animated" id="comments">
 
+                  <!-- view comment -->
+                  <div class="col-md-12 animated" id="comments">
                      {% for comment in comments %}
                      <div>
                         <div class="comment">
@@ -42,11 +43,10 @@
                         </div>
                      </div>
                      {% endfor %}
-
                   </div>
+                  <!-- view comment done -->
 
                   <!-- input comment -->
-
                   <form class="d-none d-md-inline-block form-inline" id="input-comment">
                      <div class="input-group">
                         <input type="text" class="form-control" placeholder="Send Message">
@@ -57,6 +57,7 @@
                         </div>
                      </div>
                   </form>
+                  <!-- input comment done -->
 
                </div>
             </div>
@@ -64,70 +65,67 @@
       </ul>
    </div> <!-- /#sidebar-wrapper -->
 
-   <div class="container-fluid animated" id="page-content-wrapper">
-      <div class="video-block section-padding">
-         <div class="row">
-            <div class="col-md-12">
-               <button type="button" class="btn btn-dark border-none chatexpand displaynone">
-                  <i class="fas fa-angle-double-left"></i>
-               </button>
-               <div class="single-video-left">
-                  <div class="single-video" width="100%" height="auto">
-                     <video id='hls-example' class="video-js vjs-default-skin vjs-16-9"  controls preload="auto" 
-                              data-setup='{ "fluid": true}'>
-                        {% comment %} <source src="rtmp://210.150.183.58:1935/test" type="rtmp/flv"> {% endcomment %}
-                        <source type="application/x-mpegURL" src={{ src }} style="z-index: 0;">
-                     </video>
+   <div class="video-block section-padding container-fluid" >
+      <div class="row">
+         <div class="col-md-12">
+            <button type="button" class="btn btn-dark border-none chatexpand">
+               <i class="fas fa-angle-double-left"></i>
+            </button>
+            <div class="single-video-left">
+               <div class="single-video" width="100%" max-height="1000px">
+                  <video id='hls-example' class="video-js vjs-default-skin vjs-16-9"  controls preload="auto" 
+                           data-setup='{ "fluid": true}' max-height="1000px">
+                     <source type="application/x-mpegURL" src={{ src }} style="z-index: 0;">
+                  </video>
+                  
+                  {% comment %} 
+                  <video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto"
+                     data-setup='{"fluid": true}'>
+                     <source src="rtmp://218.150.183.58:1935/encode/ssbkey" type="rtmp/flv" style="z-index: 0;">
+                  </video> 
+                  {% endcomment %}
 
-                     {% comment %}<img src={% url "srctest" %} width="100%" height="auto" content="image/jpeg" style="-webkit-user-select: none;margin: auto;">
-                      <iframe width="100%" height="315"
-                        src=""
-                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> {% endcomment %}
-                  </div>
-                  <div class="single-video-title box mb-3">
-                     <h2><a href="#">Contrary to popular belief, Lorem Ipsum (2019) is not.</a></h2>
-                     <p class="mb-0"><i class="fas fa-eye"></i> 2,729,347 views</p>
-                  </div>
-                  <div class="single-video-author box mb-3">
-                     <img class="img-fluid" src={% get_static_prefix %}{{vuser.profile}} alt="">
-                     <p>
-                        <a href="#"><strong>{{vuser.username}}</strong></a> 
-                        <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified">
-                           <i class="fas fa-check-circle text-success"></i>
-                        </span>
-                     </p>
-                     <small>Last login {{vuser.last_login}}</small>
-                  </div>
-                  <div class="single-video-info-content box mb-3">
-                     <h6>Cast:</h6>
-                     <p>Nathan Drake , Victor Sullivan , Sam Drake , Elena Fisher</p>
-                     <h6>Category :</h6>
-                     <p>Gaming , PS4 Exclusive , Gameplay , 1080p</p>
-                     <h6>About :</h6>
-                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their
-                        infancy. Various versions have evolved overVarious versions have evolved over the years,
-                        sometimes
-                     </p>
-                     <h6>Tags :</h6>
-                     <p class="tags mb-0">
-                        <span><a href="#">Uncharted 4</a></span>
-                        <span><a href="#">Playstation 4</a></span>
-                        <span><a href="#">Gameplay</a></span>
-                        <span><a href="#">1080P</a></span>
-                        <span><a href="#">ps4Share</a></span>
-                        <span><a href="#">+ 6</a></span>
-                     </p>
-                  </div>
+               </div>
+               <div class="single-video-title box mb-3">
+                  <h2><a href="#">Contrary to popular belief, Lorem Ipsum (2019) is not.</a></h2>
+                  <p class="mb-0"><i class="fas fa-eye"></i> 2,729,347 views</p>
+               </div>
+               <div class="single-video-author box mb-3">
+                  <img class="img-fluid" src={% get_static_prefix %}{{vuser.profile}} alt="">
+                  <p>
+                     <a href="#"><strong>{{vuser.username}}</strong></a> 
+                     <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified">
+                        <i class="fas fa-check-circle text-success"></i>
+                     </span>
+                  </p>
+                  <small>Last login {{vuser.last_login}}</small>
+               </div>
+               <div class="single-video-info-content box mb-3">
+                  <h6>Cast:</h6>
+                  <p>Nathan Drake , Victor Sullivan , Sam Drake , Elena Fisher</p>
+                  <h6>Category :</h6>
+                  <p>Gaming , PS4 Exclusive , Gameplay , 1080p</p>
+                  <h6>About :</h6>
+                  <p>It is a long established fact that a reader will be distracted by the readable content of a page
+                     when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                     distribution of letters, as opposed to using 'Content here, content here', making it look like
+                     readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
+                     their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
+                     their
+                     infancy. Various versions have evolved overVarious versions have evolved over the years,
+                     sometimes
+                  </p>
+                  <h6>Tags :</h6>
+                  <p class="tags mb-0">
+                     <span><a href="#">Uncharted 4</a></span>
+                     <span><a href="#">Playstation 4</a></span>
+                     <span><a href="#">Gameplay</a></span>
+                     <span><a href="#">1080P</a></span>
+                     <span><a href="#">ps4Share</a></span>
+                     <span><a href="#">+ 6</a></span>
+                  </p>
                </div>
             </div>
-
-
-
          </div>
       </div>
    </div>
@@ -155,9 +153,9 @@
          if ($(window).width() <= 768) {
             $("#chatting").removeClass("toggled");
          } else {
-            $("#chatting").addClass("toggled");
+            {% comment %} $("#chatting").addClass("toggled"); {% endcomment %}
          }
-         setSidebarWidth()
+         
       });
    });
 

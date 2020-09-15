@@ -1,5 +1,3 @@
-sudo su
-
 mkdir nginx_install
 cd nginx_install
 
@@ -26,3 +24,8 @@ wget https://raw.github.com/JasonGiedymin/nginx-init-ubuntu/master/nginx -O /etc
 chmod +x /etc/init.d/nginx
 update-rc.d -f nginx defaults
 service nginx status
+
+cp -f nginx.conf /usr/local/nginx/conf/
+mkdir -pZ /data/hdd/kkb/www/live
+chown -R www-data:www-data /data/hdd/kkb/www
+service nginx start

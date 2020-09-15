@@ -41,3 +41,15 @@ class DiceUser(AbstractBaseUser,PermissionsMixin):
     is_staff = models.BooleanField(default=False)    
     date_joined = models.DateTimeField(auto_now_add=True)     
     USERNAME_FIELD = 'username'
+    
+    @property
+    def profile(self):
+        return  'img/s{}.png'.format(self.id%8+1)
+        
+    @property
+    def pannel(self):
+        return  'img/v{}.png'.format(self.id%7+1)
+
+class RegisterdFace(models.Model):
+    embeding = models.BinaryField()
+    name = models.CharField(max_length = 150)

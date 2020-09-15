@@ -3,8 +3,6 @@
 
 {% load static %}
 
-{% block act_home %}active{% endblock %}
-
 {% block content %}
 
 <div class="container-fluid pb-0 animated">
@@ -34,21 +32,23 @@
             </div>
          </div>
 
-         {% for user in users %}
+         {% for u in users %}
          {% comment %} Single Video block {% endcomment %}
          <div class="col-xl-3 col-sm-6 mb-3">
             <div class="video-card">
                <div class="video-card-image">
-                  <a class="play-icon" href="{% url 'stream' user.username %}"><i class="fas fa-play-circle"></i></a>
-                  <a href="{% url 'stream' user.username %}"><img class="img-fluid" src={% get_static_prefix %}{{user.profile}} alt=""></a>
+                  <a class="play-icon" href="{% url 'stream' u.username %}"><i class="fas fa-play-circle"></i></a>
+                  <a href="{% url 'stream' u.username %}">
+                     <img class="img-fluid" src="{% get_static_prefix %}{{u.pannel}}" alt="pannel">
+                  </a>
                   <div class="time">50</div>
                </div>
                <div class="video-card-body">
                   <div class="video-title">
-                     <a href="{% url 'stream' user.username %}">{{user.username}}</a>
+                     <a href="{% url 'stream' u.username %}">{{u.username}}</a>
                   </div>
                   <div class="video-view">
-                     last login &nbsp;<i class="fas fa-calendar-alt"></i> {{user.last_login}}
+                     last login &nbsp;<i class="fas fa-calendar-alt"></i> {{u.last_login}}
                   </div>
                </div>
             </div>

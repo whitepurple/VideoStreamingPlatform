@@ -22,6 +22,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Stream
 
+from .streaming import show_detectedVideo
+import subprocess
+from django.conf import settings
  
 # Create your views here.
 
@@ -51,21 +54,15 @@ def index(request):
 
 @login_required(login_url='/login/')
 def home(request):
-    users = DiceUser.objects\
-                .filter(is_superuser=False)\
-                .extra(select={'profile':"int('user_id') % 7"})\
-                .values('id','username','last_login')
-    for user in users:
-        user['profile'] = 'img/v{}.png'.format(user['id']%7+1)
-    print(users)
+    users = DiceUser.objects.filter(is_superuser=False).all()
+
     return render(request, 'index.html', {'users':users})
 
 @login_required(login_url='/login/')
 def stream(request, username):
     alpha = 'qwerasdfzxcvtyuighjkbnmopl         '
-    user = DiceUser.objects.filter(username=username).values('id','username','last_login')[0]
-    user['profile'] = 'img/s{}.png'.format(user['id']%7+1)
-    print(user)
+    users = DiceUser.objects.filter(is_superuser=False).exclude(username=username).all()
+    vuser = DiceUser.objects.filter(username=username)[0]
     comments = []
     for k in range(100):
         comment = {}
@@ -79,10 +76,11 @@ def stream(request, username):
         comment['color'] = (random.randrange(0,255),random.randrange(0,255),random.randrange(0,255))
         comments.append(comment)
         
-        user_redirect = "http://218.150.183.58/live/{}/index.m3u8".format(user['username'])
+        user_redirect = "http://218.150.183.59/live/{}/index.m3u8".format(vuser.username)
         
     return render(request, 'video-page.html', { 'comments':comments, 
-                                                'vuser': user, 
+                                                'vuser': vuser, 
+                                                'users': users,
                                                 'src':user_redirect} )
 
 
@@ -105,8 +103,15 @@ def start_stream(request):
 
     stream.started_at = timezone.now()
     stream.save()
-
-    # Redirect to the streamer's public username
+    # try:
+    #     import requests, json
+    #     tmpData = {
+    #         "name" : stream.key
+    #     }
+    #     r = requests.post("http://218.150.183.59:8000/tt", data=tmpData)
+    # except:
+    #     pass
+    # Redirect to the streamer's public username    
     return redirect("/" +stream.user.username)
 
 
@@ -116,4 +121,22 @@ def stop_stream(request):
     """ This view is called when a stream stops.
     """
     Stream.objects.filter(key=request.POST["name"]).update(started_at=None)
+    return HttpResponse("OK")
+
+
+
+
+@csrf_exempt
+def doublepublishtest(request):
+    print('hihi')
+    stream = get_object_or_404(Stream, key=request.POST["name"])
+    print(stream.key)
+    output_path = 'rtmp://218.150.183.59:1935/encode/{}'.format(stream.key)
+    input_path = 'rtmp://218.150.183.59:1935/key/{}'.format(stream.key)
+    print(output_path)
+    print(input_path)
+    # a = subprocess.run(['python3',settings.BASE_DIR+'/testapp/streaming.py',input_path, output_path], capture_output=True)
+    # print(a.stdout)
+    show_detectedVideo(input_path, output_path)
+    print('OK')
     return HttpResponse("OK")

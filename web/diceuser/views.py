@@ -22,3 +22,4 @@ def signup(request):
 
 class MyLoginView(LoginView):
     template_name = 'login.html'
+
