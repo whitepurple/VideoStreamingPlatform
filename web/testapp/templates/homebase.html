@@ -31,12 +31,16 @@
                {{user.username}}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-               <a class="dropdown-item" href="account.html">
+               <a class="dropdown-item" onclick="mypageform()">
                   <i class="fas fa-fw fa-user-circle"></i> 
                   &nbsp; My Account
                </a>
-               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i
-                     class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
+               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
+               <form id='mypageform' method="POST" action="{% url 'mypage' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="name" value={{user.username}} />
+               </form>
             </div>
          </li>
       </ul>
@@ -79,9 +83,8 @@
       <!-- /.content-wrapper -->
 
       <!-- Scroll to Top Button-->
-      <a class="scroll-to-top rounded" href="#page-top">
-         <i class="fas fa-angle-up"></i>
-      </a>
+      {% block totop %}
+      {% endblock %}
       <!-- Logout Modal-->
       <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -101,6 +104,12 @@
             </div>
          </div>
       </div>
-      {%block script%}{%endblock%}
+      {%block script%}
+      <script>
+      function mypageform() {
+         document.getElementById('mypageform').submit();
+      }
+      </script>
+      {%endblock%}
 {%endblock%}
 </html>

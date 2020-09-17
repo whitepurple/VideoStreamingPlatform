@@ -233,3 +233,15 @@ nginx_install/
 
 model/DeepMask/src/weights/resnet18_KFace.pth
 model/DeepMask/src/weights/resnet18_pretrain.pth
+model/Streaming/src/weights/resnet18_KFace.pth
+model/Streaming/src/weights/resnet18_pretrain.pth
+model/Streaming/src2/weights/resnet18_KFace.pth
+model/Streaming/src2/weights/resnet18_pretrain.pth
+model/Streaming/weights/mobilenet0.25_Final.pth
+model/Streaming/weights/mobilenetV1X0.25_pretrain.tar
+model/Streaming/weights/Resnet50_Final.pth
+model/Streaming/widerface_evaluate/box_overlaps.pyx
+model/Streaming/widerface_evaluate/ground_truth/wider_easy_val.mat
+model/Streaming/widerface_evaluate/ground_truth/wider_face_val.mat
+model/Streaming/widerface_evaluate/ground_truth/wider_hard_val.mat
+model/Streaming/widerface_evaluate/ground_truth/wider_medium_val.mat

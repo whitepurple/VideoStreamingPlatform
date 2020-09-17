@@ -113,12 +113,12 @@ def drawbox(frame, boxes,ori_width,ori_height,width, height,face_model):
             box[0], box[1], box[2], box[3] = box[0] * ori_width / width, box[1] * ori_height / height, box[2] * ori_width / width, box[3] * ori_height / height
             box = box.astype(int)
             box = boxminmax(box,frame)
-            face_img = frame[box[1]:box[3],box[0]:box[2]]
-            face_img = cv2.resize(face_img,(128,128))
-            face_img = cv2.cvtColor(face_img,cv2.COLOR_BGR2GRAY)
-            similarity = getSimilarity(face_img,face_img,face_model)
-            if similarity < 0.08:
-                frame = faceblur(frame,box)  
+            # face_img = frame[box[1]:box[3],box[0]:box[2]]
+            # face_img = cv2.resize(face_img,(128,128))
+            # face_img = cv2.cvtColor(face_img,cv2.COLOR_BGR2GRAY)
+            # similarity = getSimilarity(face_img,face_img,face_model)
+            # if similarity < 0.08:
+            #     frame = faceblur(frame,box)  
             frame = cv2.rectangle(frame,(box[0],box[1]),(box[2],box[3]),(0,0,255),1)
     return frame
 
@@ -134,7 +134,7 @@ def show_detectedVideo(video):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     command1 = ['ffmpeg',
-            #'-thread_queue_size', '500',
+            '-thread_queue_size', '500',
             '-f', 'rawvideo',
             '-vcodec', 'rawvideo',
             '-pix_fmt', 'bgr24',
@@ -144,19 +144,19 @@ def show_detectedVideo(video):
                 
             '-itsoffset','1500ms',
             # '-copyts','-start_at_zero',
-            #'-thread_queue_size', '500',
-            '-re',#str(fps),
+            '-thread_queue_size', '500',
+            '-r',str(fps),
             '-f', 'live_flv',
             '-i', input_path,            
             '-map', '0:v:0',
-            '-map', '1:a:0,0:v:0',
+            '-map', '1:a:0',
             '-c:v', 'libx264',
             '-pix_fmt', 'rgb4',
             '-c:a', 'copy',
             '-b:a', '128k',
             '-b:v','2500k',            
             '-f', 'flv',
-            '-r', str(fps),
+            #'-r', str(fps),
             '-preset','fast',        
             '-tune','zerolatency', 
             output_path
@@ -187,6 +187,4 @@ def show_detectedVideo(video):
 
 if __name__ == "__main__":
 
-
-    
     show_detectedVideo("rtmp://218.150.183.59:1935/key/testkey")        

@@ -34,7 +34,7 @@ class Config(object):
     optimizer = 'sgd'
 
     use_gpu = True
-    gpu_id = '0,1'
+    gpu_id = '0,1,2,3'
     num_workers = 4
     print_freq = 100
 

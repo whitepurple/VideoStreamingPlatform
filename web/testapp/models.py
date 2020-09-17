@@ -38,3 +38,15 @@ def create_stream_for_user(sender, instance=None, created=False, **kwargs):
     """
     if created:
         Stream.objects.create(user=instance)
+
+
+class Face(models.Model):
+    streamer = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="registerd_faces", on_delete=models.CASCADE)
+    name = models.CharField(max_length=20, default="someone")
+    profile = models.ImageField()
+    embeding = models.BinaryField(editable=True)
+    is_registerd = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name

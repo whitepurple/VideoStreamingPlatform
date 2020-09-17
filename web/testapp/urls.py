@@ -12,6 +12,9 @@ def fake_view(*args, **kwargs):
 urlpatterns = [
     path('home', views.home, name = "home"),
     path('streaming/<str:username>', views.stream, name = "stream"),
+    path('mypage', views.mypage, name = "mypage"),
+    path('editface', views.registerface, name = "editface"),
+
     path('src', views.index, name = "srctest"),
     path('src1', views.VideoView, name = "vtest"),
 

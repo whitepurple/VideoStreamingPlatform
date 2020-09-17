@@ -2,8 +2,6 @@
 {% extends 'homebase.html' %}
 {% load static %}
 
-{% block act_video %}active{% endblock %}
-
 {% block content %}
 
 <div id="chatting" class="animated">
@@ -77,7 +75,7 @@
                            data-setup='{ "fluid": true}' max-height="1000px">
                      <source type="application/x-mpegURL" src={{ src }} style="z-index: 0;">
                   </video>
-                  
+               
                   {% comment %} 
                   <video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto"
                      data-setup='{"fluid": true}'>
@@ -87,7 +85,7 @@
 
                </div>
                <div class="single-video-title box mb-3">
-                  <h2><a href="#">Contrary to popular belief, Lorem Ipsum (2019) is not.</a></h2>
+                  <h2><a href="#">{{vuser.username}}'s Streaming</a></h2>
                   <p class="mb-0"><i class="fas fa-eye"></i> 2,729,347 views</p>
                </div>
                <div class="single-video-author box mb-3">
@@ -131,6 +129,13 @@
    </div>
 </div>
 <!-- /.container-fluid -->
+
+{% endblock %}
+
+{% block totop %}
+<a class="scroll-to-top rounded" href="#page-top">
+   <i class="fas fa-angle-up"></i>
+</a>
 {% endblock %}
 
 {%block script%}
@@ -173,5 +178,11 @@
       setSidebarWidth();
    }
 
+</script>
+
+<script>
+function mypageform() {
+   document.getElementById('mypageform').submit();
+}
 </script>
 {%endblock%}

@@ -96,9 +96,9 @@ def show_detectedVideo(input_path,output_path, device=0):
     print('while start')
     try:
         while cap.isOpened():
-            start_fps = time.time()
-        
+            t1 = time.time()
             ret, frame = cap.read() 
+            t2 = time.time()
             if ret:
                 ori_height = frame.shape[0]
                 ori_width = frame.shape[1]
@@ -117,7 +117,10 @@ def show_detectedVideo(input_path,output_path, device=0):
                 end_fps = time.time()
                 fps = 1/(end_fps-start_fps)
                 #cv2.putText(frame,'FPS :'+str(int(fps)),(0,20),cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,0,255), 2, cv2.FONT_HERSHEY_COMPLEX)     
+                start = time.time()
                 p1.stdin.write(frame.tobytes()) 
+                print(time.time()-start)
+
             else:
                 p1.kill()
                 print('ffmpeg killed')

@@ -32,7 +32,7 @@ body {
 
 #chatting {
     padding-left: 0;
-
+    height: fit-content;
 }
 
 #chatting.toggled {
@@ -40,7 +40,7 @@ body {
 }
 
 #sidebar-wrapper {
-    z-index: 1000;
+    z-index: 0;
     position: fixed;
     right: 340px;
     width: 0;
@@ -76,9 +76,12 @@ body {
     margin: 0;
     padding: 0;
     list-style: none;
+    z-index: 0;
 }
 
-
+.navbar-expand .navbar-nav .dropdown-menu {
+    z-index: 10;
+}
 
 @media(min-width:768px) {
     #chatting {
@@ -163,7 +166,6 @@ body {
 
 .chat-title {
     width: auto;
-    border-bottom: solid;
     margin: auto;
 }
 
@@ -172,15 +174,12 @@ body {
 }
 
 .chatcompress {
+    position: absolute;
+    left: 0;
     width: 30px;
     height: 30px;
     padding: 0;
-    vertical-align: middle;
-    margin-top:auto; 
-    margin-bottom:auto;
-}
-.chatcompress > i {
-    margin: auto;
+    transform: translateY(-15%);
 }
 
 .chatexpand {
@@ -198,6 +197,15 @@ body {
     border-color: transparent;
     border: none;
     right: 10px;
+    z-index: 10;
+}
+
+@media (max-width: 768.1px) {
+    .chatexpand {
+        display: none;
+    }
+
+
 }
 
 .displaynone {

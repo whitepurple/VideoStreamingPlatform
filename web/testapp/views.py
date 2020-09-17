@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 import random
 import numpy as np
 import urllib
@@ -20,7 +21,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Stream
+from .models import Stream, Face
 
 from .streaming import show_detectedVideo
 import subprocess
@@ -54,9 +55,37 @@ def index(request):
 
 @login_required(login_url='/login/')
 def home(request):
-    users = DiceUser.objects.filter(is_superuser=False).all()
+    users = DiceUser.objects\
+                    .filter(is_superuser=False)\
+                    .all()
 
     return render(request, 'index.html', {'users':users})
+
+@login_required(login_url='/login/')
+def mypage(request):
+    users = DiceUser.objects\
+                    .filter(is_superuser=False)\
+                    .all()
+    user = get_object_or_404(DiceUser, username=request.POST["name"])
+    faces = user.registerd_faces.all()
+
+    return render(request, 'subscriptions.html', {'users':users,
+                                                    'faces':faces})
+
+def registerface(request):
+    # try:# @login_required(login_url='/login/')
+    facename =request.POST
+    print(facename)
+    user = get_object_or_404(DiceUser, username=request.POST["name"])
+    faces = user.registerd_faces.all()
+    faceregister = request.POST.getlist('faces',[])
+    print(faceregister)
+    for i, f in enumerate(faces):
+        f.is_registerd = True if faceregister[i] == 'T' else False
+        f.save()
+
+    return redirect('home')
+    
 
 @login_required(login_url='/login/')
 def stream(request, username):
@@ -122,9 +151,6 @@ def stop_stream(request):
     """
     Stream.objects.filter(key=request.POST["name"]).update(started_at=None)
     return HttpResponse("OK")
-
-
-
 
 @csrf_exempt
 def doublepublishtest(request):
