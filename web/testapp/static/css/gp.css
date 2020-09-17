@@ -263,16 +263,24 @@ body {
     width: 100px;
     margin-left: 10px;
 }
+.channels-card-image .img-fluid {
+    object-fit: contain;
+}
 
 .circle {
     background: #fff none repeat scroll 0 0;
     border-radius: 50px;
     box-shadow: 0 0 2px #ccc;
-    height: 80px;
+    height: 77px;
     margin: 1px 0 8px;
     object-fit: contain;
     transform: scale(1);
     width: 200px;
     padding-top: 28px;
     padding-left: 12px;
+}
+
+#unstreaming {
+    filter: grayscale(100%);
+    pointer-events: none;
 }

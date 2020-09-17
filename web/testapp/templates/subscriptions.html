@@ -20,7 +20,7 @@
          <div class="col-xl-3 col-sm-6 mb-3">
             <div class="channels-card">
                <div class="channels-card-image">
-                  <a href="#"><img class="img-fluid" src={% get_media_prefix %}{{face.profile}} alt=""></a>
+                  <img class="img-fluid" src={% get_media_prefix %}{{face.profile}} alt="">
                   <div class="channels-card-image-btn">
                      {% if face.is_registerd %}
                      <button type="button" class="btn btn-success btn-sm border-none face-toggle">
@@ -51,7 +51,7 @@
                <div class="channels-card-image">
                   <a href="#">
                      <input id='face-r' class='circle' type="file" 
-                                 name="name" value='name'>
+                                 name="test" value='name'>
                      </input>
                   </a>
                   <div class="channels-card-image-btn">
@@ -63,7 +63,7 @@
                <div class="channels-card-body">
                   <div class="channels-title">
                      name: <input id='face-r' class='face-form' type="text" 
-                                 name="name" value='name'/>
+                                 name="test" value='name'/>
                   </div>
                </div>
             </div>

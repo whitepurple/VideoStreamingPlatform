@@ -35,13 +35,13 @@
          {% for u in users %}
          {% comment %} Single Video block {% endcomment %}
          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="video-card">
+            <div class="video-card" {% if u.stream.is_live %}{%else%}id='unstreaming'{% endif %}>
                <div class="video-card-image">
                   <a class="play-icon" href="{% url 'stream' u.username %}"><i class="fas fa-play-circle"></i></a>
                   <a href="{% url 'stream' u.username %}">
                      <img class="img-fluid" src="{% get_static_prefix %}{{u.pannel}}" alt="pannel">
                   </a>
-                  <div class="time">50</div>
+                  <div class="time">{% if u.stream.is_live %}LIVE ON{%else%}OFF{% endif %}</div>
                </div>
                <div class="video-card-body">
                   <div class="video-title">

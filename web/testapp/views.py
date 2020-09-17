@@ -22,8 +22,9 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Stream, Face
-
 from .streaming import show_detectedVideo
+from .utils import *
+
 import subprocess
 from django.conf import settings
  
@@ -55,17 +56,13 @@ def index(request):
 
 @login_required(login_url='/login/')
 def home(request):
-    users = DiceUser.objects\
-                    .filter(is_superuser=False)\
-                    .all()
+    users = get_users_orderby_streaming()
 
     return render(request, 'index.html', {'users':users})
 
 @login_required(login_url='/login/')
 def mypage(request):
-    users = DiceUser.objects\
-                    .filter(is_superuser=False)\
-                    .all()
+    users = get_users_orderby_streaming()
     user = get_object_or_404(DiceUser, username=request.POST["name"])
     faces = user.registerd_faces.all()
 
