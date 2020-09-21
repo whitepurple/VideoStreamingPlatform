@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from .models import DiceUser
+
 # Create your views here.
 
 class SignupForm(UserCreationForm):
@@ -22,4 +23,3 @@ def signup(request):
 
 class MyLoginView(LoginView):
     template_name = 'login.html'
-

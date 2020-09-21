@@ -49,7 +49,3 @@ class DiceUser(AbstractBaseUser,PermissionsMixin):
     @property
     def pannel(self):
         return  'img/v{}.png'.format(self.id%7+1)
-
-class RegisterdFace(models.Model):
-    embeding = models.BinaryField()
-    name = models.CharField(max_length = 150)

@@ -21,13 +21,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*6-#-zd$!t8q#-&)&t(ad82oi8u=l3ap3*v^$3vc9^g1g_feqc'
-
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '*6-#-zd$!t8q#-&)&t(ad82oi8u=l3ap3*v^$3vc9^g1g_feqc')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
 ALLOWED_HOSTS = ['*']
 
-
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
 
     'testapp.apps.TestappConfig',
     'diceuser.apps.DiceuserConfig',
+    'blurmodel.apps.BlurmodelConfig',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },

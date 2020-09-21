@@ -13,4 +13,3 @@ class StreamAdmin(admin.ModelAdmin):
 @admin.register(Face)
 class FaceAdmin(admin.ModelAdmin):
     list_display = ("__str__", "streamer", "is_registerd")
-    readonly_fields = ("embeding",)

@@ -60,7 +60,7 @@ def cropface(frame, boxes):
 def convertArcface(frame,boxes):
     crop_list=[]
     for box in boxes:
-        if box[-1] > 0.9:
+        if box[-1] > 0.95:
             box = box.astype(int)
             box = boxminmax(box,frame)
             crop_list.append(cropface(frame,box))

@@ -3,9 +3,11 @@
 {% load static %}
 
 {% block content %}
-<form id='registerface' method="POST" action="{% url 'editface' %}">
+<form id='editface' method="POST" action="{% url 'editface' %}"
+      enctype="multipart/form-data" novalidate>
 {% csrf_token %}
-<input id='face' type="hidden" name="name" value={{user.username}} />
+<input id='face' type="hidden" name="name" value={{user.username}}  
+   />
 
 <div class="container-fluid">
    <div class="video-block section-padding">
@@ -13,6 +15,32 @@
          <div class="col-md-12">
             <div class="main-title">
                <h6>Register Faces</h6>
+               <label>Stream URL :</label>
+               <button class="btn btn-secondary btn-sm border-none" onclick="copy_to_clipboard()">복사</button>
+               <input id='key' class='face-form url' value = {{key}} readonly /> 
+            </div>
+         </div>
+         
+         <input type="hidden" name="username" value={{user.username}} />
+         <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="channels-card">
+               <div class="channels-card-image">
+                  <a href="#">
+                     {{videoform}}
+                  </a>
+                  <div class="channels-card-image-btn">
+                     <button type="button" class="btn btn-warning btn-sm border-none"
+                           onclick="registerface()">
+                        Register New Face 
+                     </button>
+                  </div>
+               </div>
+               <div class="channels-card-body">
+                  <div class="channels-title">
+                     name: <input id='face-r' class='face-form' type="text" 
+                                 name="facename" placeholder='name'/>
+                  </div>
+               </div>
             </div>
          </div>
 
@@ -43,39 +71,12 @@
             </div>
          </div>
          {% endfor %}
-
-         <form id='registerface' method="POST" action="{% url 'editface' %}">
-         {% csrf_token %}
-         <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="channels-card">
-               <div class="channels-card-image">
-                  <a href="#">
-                     <input id='face-r' class='circle' type="file" 
-                                 name="test" value='name'>
-                     </input>
-                  </a>
-                  <div class="channels-card-image-btn">
-                     <button type="button" class="btn btn-warning btn-sm border-none">
-                        Register Face
-                     </button>
-                  </div>
-               </div>
-               <div class="channels-card-body">
-                  <div class="channels-title">
-                     name: <input id='face-r' class='face-form' type="text" 
-                                 name="test" value='name'/>
-                  </div>
-               </div>
-            </div>
-         </div>
-         </form>
-
       </div>
    </div>
 </div>
 <!-- /.container-fluid -->
 
-<a class="confirm rounded" onclick="registerface()">
+<a class="confirm rounded" onclick="editface()">
    <i class="fas fa-check"></i>
 </a>
 </form>
@@ -88,10 +89,6 @@
 
 {%block script%}
 <script>
-   function registerface() {
-      document.getElementById('registerface').submit();
-   }
-
    $('.face-toggle').click(function(event){
       var button = $(event.target);
       var target = $(event.target).next("#face");
@@ -107,6 +104,21 @@
       }
       button.text('Changed');
    });
-
+   function editface() {
+      document.getElementById('editface').submit();
+   }
+   
+   function registerface() {
+      var form = $("#editface");
+      form.attr('action', "{% url 'registerface' %}");
+      form.submit();
+   }
+    function copy_to_clipboard() {
+      var copyText = document.getElementById('key');
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("Copy");
+      alert("클립보드에 복사하였습니다. ");
+    }
 </script>
 {%endblock%}

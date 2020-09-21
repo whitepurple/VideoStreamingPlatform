@@ -13,13 +13,10 @@ urlpatterns = [
     path('home', views.home, name = "home"),
     path('streaming/<str:username>', views.stream, name = "stream"),
     path('mypage', views.mypage, name = "mypage"),
-    path('editface', views.registerface, name = "editface"),
-
-    path('src', views.index, name = "srctest"),
-    path('src1', views.VideoView, name = "vtest"),
+    path('editface', views.editregister, name = "editface"),
+    path('registerface', views.registerface, name = "registerface"),
 
     path("start_stream", views.start_stream, name="start-stream"),
     path("stop_stream", views.stop_stream, name="stop-stream"),
     path("live/<username>/index.m3u8", fake_view, name="hls-url"),
-    path("tt", views.doublepublishtest, name="teste"),
 ]

@@ -28,10 +28,10 @@
                      {% for comment in comments %}
                      <div>
                         <div class="comment">
-                           <span style="color: rgb{{comment.color}};">
+                           <span style="color: rgb{{comment.color}}">
                               {{comment.nickname}}
                            </span>
-                           <span style="color: rgb{{comment.color}};">
+                           <span style="color: rgb{{comment.color}}">
                               ({{comment.id}})
                            </span>
                            <span aria-hidden="true">:</span>
@@ -70,19 +70,11 @@
                <i class="fas fa-angle-double-left"></i>
             </button>
             <div class="single-video-left">
-               <div class="single-video" width="100%" max-height="1000px">
-                  <video id='hls-example' class="video-js vjs-default-skin vjs-16-9"  controls preload="auto" 
-                           data-setup='{ "fluid": true}' max-height="1000px">
+               <div class="single-video">
+                  <video id='hls-example' class="video-js vjs-default-skin"  controls preload="auto" 
+                           data-setup='{ }'>
                      <source type="application/x-mpegURL" src={{ src }} style="z-index: 0;">
                   </video>
-               
-                  {% comment %} 
-                  <video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto"
-                     data-setup='{"fluid": true}'>
-                     <source src="rtmp://218.150.183.58:1935/encode/ssbkey" type="rtmp/flv" style="z-index: 0;">
-                  </video> 
-                  {% endcomment %}
-
                </div>
                <div class="single-video-title box mb-3">
                   <h2><a href="#">{{vuser.username}}'s Streaming</a></h2>
@@ -157,10 +149,7 @@
       $(window).resize(function (e) {
          if ($(window).width() <= 768) {
             $("#chatting").removeClass("toggled");
-         } else {
-            {% comment %} $("#chatting").addClass("toggled"); {% endcomment %}
          }
-         
       });
    });
 
@@ -178,11 +167,9 @@
       setSidebarWidth();
    }
 
-</script>
-
-<script>
 function mypageform() {
    document.getElementById('mypageform').submit();
 }
+
 </script>
 {%endblock%}

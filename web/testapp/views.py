@@ -1,3 +1,4 @@
+from django.http import response
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -8,13 +9,9 @@ import numpy as np
 import urllib
 import json
 import cv2
-from .cam import VideoCamera
 from django.views.decorators import gzip
-from django.http import HttpResponse,StreamingHttpResponse
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
-from diceuser.models import DiceUser
-
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, get_object_or_404
 from django.utils import timezone
@@ -22,35 +19,15 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Stream, Face
-from .streaming import show_detectedVideo
 from .utils import *
 
 import subprocess
 from django.conf import settings
- 
-# Create your views here.
+from diceuser.models import DiceUser
+from .forms import VideoForm
 
-# def gen(camera):
-#     while True:
-#         frame = camera.get_frame()
-#         return frame 
-
-def VideoView(request):
-    return render(request, 'video.html', {'img':gen(VideoCamera())})
-
-def gen(camera):
-    while True:
-        frame = camera.get_frame()
-        if frame:
-            yield (b'--frame\r\n'
-            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-@gzip.gzip_page
-def index(request): 
-    try:
-        return StreamingHttpResponse(gen(VideoCamera()),content_type="multipart/x-mixed-replace;boundary=frame")
-    except:
-        print("aborted")
+def page_not_found(request,exception):
+    return render(request, '404.html',status=404)
 
 ########################################new template
 
@@ -65,23 +42,49 @@ def mypage(request):
     users = get_users_orderby_streaming()
     user = get_object_or_404(DiceUser, username=request.POST["name"])
     faces = user.registerd_faces.all()
-
+    form= VideoForm()
+    rtmp_path = f'rtmp://218.150.183.59:1935/key/{user.stream.key}'
     return render(request, 'subscriptions.html', {'users':users,
-                                                    'faces':faces})
-
-def registerface(request):
-    # try:# @login_required(login_url='/login/')
-    facename =request.POST
-    print(facename)
+                                                    'faces':faces,
+                                                    'videoform':form,
+                                                    'key':rtmp_path})
+@require_POST
+def editregister(request):
     user = get_object_or_404(DiceUser, username=request.POST["name"])
+    print(user)
     faces = user.registerd_faces.all()
     faceregister = request.POST.getlist('faces',[])
-    print(faceregister)
     for i, f in enumerate(faces):
         f.is_registerd = True if faceregister[i] == 'T' else False
         f.save()
 
     return redirect('home')
+
+# from blurmodel.embedding import Embedding
+from blurmodel.embedding import Embedding
+from django.core.files import File
+
+@require_POST
+def registerface(request):
+    form= VideoForm(request.POST, request.FILES)
+    user = get_object_or_404(DiceUser, username=request.POST["username"])
+    if form.is_valid():
+        face = form.save(commit=False)
+        face.streamer = user
+        face.name = request.POST["facename"]
+        if len(face.name) == 0:
+            face.name = 'someone'
+        face.save()
+        embedding = Embedding(settings.MEDIA_ROOT+ '/'+str(face.videofile))
+        face.embedding = embedding.getEmbedding()
+        path = embedding.getFace()
+        f = open(path, 'rb')
+        face.profile =File(f, name=str.join('/',path.split('/')[-1:]))
+        face.save()
+        print('savetest')
+        f.close
+    return redirect('home')
+
     
 
 @login_required(login_url='/login/')
@@ -129,15 +132,6 @@ def start_stream(request):
 
     stream.started_at = timezone.now()
     stream.save()
-    # try:
-    #     import requests, json
-    #     tmpData = {
-    #         "name" : stream.key
-    #     }
-    #     r = requests.post("http://218.150.183.59:8000/tt", data=tmpData)
-    # except:
-    #     pass
-    # Redirect to the streamer's public username    
     return redirect("/" +stream.user.username)
 
 
@@ -147,19 +141,4 @@ def stop_stream(request):
     """ This view is called when a stream stops.
     """
     Stream.objects.filter(key=request.POST["name"]).update(started_at=None)
-    return HttpResponse("OK")
-
-@csrf_exempt
-def doublepublishtest(request):
-    print('hihi')
-    stream = get_object_or_404(Stream, key=request.POST["name"])
-    print(stream.key)
-    output_path = 'rtmp://218.150.183.59:1935/encode/{}'.format(stream.key)
-    input_path = 'rtmp://218.150.183.59:1935/key/{}'.format(stream.key)
-    print(output_path)
-    print(input_path)
-    # a = subprocess.run(['python3',settings.BASE_DIR+'/testapp/streaming.py',input_path, output_path], capture_output=True)
-    # print(a.stdout)
-    show_detectedVideo(input_path, output_path)
-    print('OK')
     return HttpResponse("OK")

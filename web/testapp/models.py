@@ -44,8 +44,9 @@ class Face(models.Model):
     streamer = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="registerd_faces", on_delete=models.CASCADE)
     name = models.CharField(max_length=20, default="someone")
-    profile = models.ImageField()
-    embeding = models.BinaryField(editable=True)
+    profile = models.ImageField(upload_to='profile/',null=True)
+    videofile= models.FileField(upload_to='videos/', null=True, verbose_name="")
+    embedding = models.BinaryField(editable=True, null=True)
     is_registerd = models.BooleanField(default=False)
 
     def __str__(self):

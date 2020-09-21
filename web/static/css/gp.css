@@ -229,3 +229,58 @@ body {
     left:0; right:0; margin-left:auto; margin-right:auto;
     top: 0; bottom:0; margin-top:auto; margin-bottom:auto;
 }
+
+.confirm {
+    background: rgba(52, 58, 64, 0.5) none repeat scroll 0 0;
+    border-radius: 70px !important;
+    top: 76px;
+    color: #fff;
+    display: block;
+    height: 50px;
+    line-height: 46px;
+    position: fixed;
+    right: 15px;
+    text-align: center;
+    width: 50px;
+}
+.confirm:focus, .confirm:hover {
+    color: white;
+}
+.confirm:hover {
+    background: #343a40;
+}
+.confirm i {
+    color: #FFF;
+    font-weight: 800;
+}
+
+.face-form {
+    background: #eceff0 none repeat scroll 0 0;
+    font-size: 14px;
+    border-color: #dcdfdf;
+    border-radius: 2px;
+    border: medium none;
+    width: 100px;
+    margin-left: 10px;
+}
+.channels-card-image .img-fluid {
+    object-fit: contain;
+}
+
+.circle {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 50px;
+    box-shadow: 0 0 2px #ccc;
+    height: 77px;
+    margin: 1px 0 8px;
+    object-fit: contain;
+    transform: scale(1);
+    width: 200px;
+    padding-top: 28px;
+    padding-left: 12px;
+}
+
+#unstreaming {
+    filter: grayscale(100%);
+    pointer-events: none;
+}
