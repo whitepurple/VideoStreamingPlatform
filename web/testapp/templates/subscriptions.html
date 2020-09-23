@@ -111,6 +111,9 @@
    function registerface() {
       var form = $("#editface");
       form.attr('action', "{% url 'registerface' %}");
+      var btn = $(".btn-warning");
+      btn.attr('id', 'unstreaming');
+      btn.text('Make Embedding...');
       form.submit();
    }
     function copy_to_clipboard() {

@@ -28,9 +28,10 @@ class StreamingRTMP:
         self.device = self.setDevice()
         print(self.device)
         self.updateEmbedding()
-        self.straight = cv2.imread(os.path.join(settings.STATIC_ROOT, 'images/') +'merong.bmp')
-        self.left = cv2.imread(os.path.join(settings.STATIC_ROOT, 'images/') +'left.jpg')
-        self.right = cv2.imread(os.path.join(settings.STATIC_ROOT, 'images/') +'right.jpg')
+        self.front = cv2.imread(os.path.join(settings.STATIC_ROOT, 'images/') +'front.jpg')
+        self.straight = cv2.imread(os.path.join(settings.STATIC_ROOT, 'images/') +'straight.png')
+        self.left = cv2.imread(os.path.join(settings.STATIC_ROOT, 'images/') +'left.png')
+        self.right = cv2.imread(os.path.join(settings.STATIC_ROOT, 'images/') +'right.png')
         self.OUT = np.zeros(1000)
         self.m_MTCNN = self.setMTCNN()
         self.m_ARCFACE = self.setARCFACE()
@@ -207,11 +208,22 @@ class StreamingRTMP:
         return frame
 
     def faceblur2(self,frame, box, landmark):
+        nose = landmark[2][0]
+        difference = nose-box[0]        
         box = box.astype(int)
         box[0], box[1], box[2], box[3] = box[0] - 10, box[1] - 10, box[2] + 10, box[3] + 10 
-        box = self.boxClip(box,frame)  
+        box = self.boxClip(box,frame)
+        fwidth = box[2]-box[0]       
+
+        if difference < fwidth/4:
+            face_img = self.right
+        elif difference > fwidth*3/4:    
+            face_img = self.left
+        else :
+            face_img = self.straight
+
         face = frame[box[1]:box[3],box[0]:box[2]]
-        blur_img = cv2.resize(self.straight,(face.shape[1],face.shape[0]),cv2.INTER_AREA)    
+        blur_img = cv2.resize(face_img,(face.shape[1],face.shape[0]),cv2.INTER_AREA)    
         blurface = np.where(blur_img!=np.array([0, 0, 0]), blur_img, face)
         frame[box[1]:box[3],box[0]:box[2]] = blurface
         return frame

@@ -10,7 +10,7 @@ def fake_view(*args, **kwargs):
     raise Exception("This should never be called!")
 
 urlpatterns = [
-    path('home', views.home, name = "home"),
+    path('', views.home, name = "home"),
     path('streaming/<str:username>', views.stream, name = "stream"),
     path('mypage', views.mypage, name = "mypage"),
     path('editface', views.editregister, name = "editface"),

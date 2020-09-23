@@ -15,14 +15,7 @@ import ffmpeg
 # if __name__ == "__main__":
 
 class Embedding:
-    num_model = 0
-    def __del__(self):
-        Embedding.num_model = Embedding.num_model-1
-
     def __init__(self, filename):
-        self.gpunum = (Embedding.num_model)%4
-        Embedding.num_model = Embedding.num_model+1
-        
         m_MTCNN = self.setMTCNN()
         ARCFACE = self.setARCFACE()    
         embedding = []
@@ -87,27 +80,36 @@ class Embedding:
         rotateCode = None
         try:
             meta_dict = ffmpeg.probe(path_video_file)
-        
         # from the dictionary, meta_dict['streams'][0]['tags']['rotate'] is the key
         # we are looking for
-            
-            if int(meta_dict['streams'][0]['tags']['rotate']) == 90:
-                rotateCode = cv2.ROTATE_90_CLOCKWISE
-            elif int(meta_dict['streams'][0]['tags']['rotate']) == 180:
-                rotateCode = cv2.ROTATE_180
-            elif int(meta_dict['streams'][0]['tags']['rotate']) == 270:
-                rotateCode = cv2.ROTATE_90_COUNTERCLOCKWISE
+            if 'rotate' in meta_dict['streams'][0]['tags'].keys():
+                if int(meta_dict['streams'][0]['tags']['rotate']) == 90:
+                    rotateCode = cv2.ROTATE_90_CLOCKWISE
+                elif int(meta_dict['streams'][0]['tags']['rotate']) == 180:
+                    rotateCode = cv2.ROTATE_180
+                elif int(meta_dict['streams'][0]['tags']['rotate']) == 270:
+                    rotateCode = cv2.ROTATE_90_COUNTERCLOCKWISE
+            elif 'rotate' in meta_dict['streams'][1]['tags'].keys():                    
+                if int(meta_dict['streams'][1]['tags']['rotate']) == 90:
+                    rotateCode = cv2.ROTATE_90_CLOCKWISE
+                elif int(meta_dict['streams'][1]['tags']['rotate']) == 180:
+                    rotateCode = cv2.ROTATE_180
+                elif int(meta_dict['streams'][1]['tags']['rotate']) == 270:
+                    rotateCode = cv2.ROTATE_90_COUNTERCLOCKWISE
 
         except ffmpeg.Error as e:
             print('stdout:', e.stdout.decode('utf8'))
             print('stderr:', e.stderr.decode('utf8'))
+        except:
+            rotateCode = None
+
         return rotateCode
 
     def correct_rotation(self, frame, rotateCode):  
         return cv2.rotate(frame, rotateCode) 
 
     def setDevice(self):
-        device = torch.device(f'cuda:{self.gpunum}' if torch.cuda.is_available() else 'cpu')
+        device = torch.device(f'cuda' if torch.cuda.is_available() else 'cpu')
         print('Running on device: {}'.format(device))  
         return device
 
