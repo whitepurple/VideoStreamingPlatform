@@ -40,7 +40,9 @@ def home(request):
 @login_required(login_url='/login/')
 def mypage(request):
     users = get_users_orderby_streaming()
-    user = get_object_or_404(DiceUser, username=request.POST["name"])
+    user = request.user
+    # print(userp)
+    # user = get_object_or_404(DiceUser, username=request.POST["name"])
     faces = user.registerd_faces.all()
     form= VideoForm()
     rtmp_path = f'rtmp://218.150.183.59:1935/key/{user.stream.key}'

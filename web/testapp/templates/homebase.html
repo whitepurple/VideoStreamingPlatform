@@ -31,15 +31,12 @@
                {{user.username}}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-               <a class="dropdown-item" onclick="mypageform()">
+               <a class="dropdown-item" href="{% url 'mypage' %}">
                   <i class="fas fa-fw fa-user-circle"></i> 
                   &nbsp; My Account
                </a>
                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
-               <form id='mypageform' method="POST" action="{% url 'mypage' %}">
-                  {% csrf_token %}
-                  <input type="hidden" name="name" value={{user.username}} />
                </form>
             </div>
          </li>
@@ -70,9 +67,9 @@
                   <div class="col-lg-6 col-sm-6">
                      <p class="mt-1 mb-0">&copy; Copyright 2020 <strong class="text-dark">DICE Lab</strong>. All Rights
                         Reserved<br>
-                        <small class="mt-0 mb-0">Made with <i class="fas fa-heart text-danger"></i> by <a
+                        <!-- <small class="mt-0 mb-0">Made with <i class="fas fa-heart text-danger"></i> by <a
                               class="text-primary" target="_blank" href="https://askbootstrap.com/">Ask Bootstrap</a>
-                        </small>
+                        </small> -->
                      </p>
                   </div>
                </div>
