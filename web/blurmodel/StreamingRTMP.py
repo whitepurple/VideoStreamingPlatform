@@ -15,7 +15,7 @@ from testapp.models import Stream
 from django.shortcuts import get_object_or_404
 #from diceuser.models import DiceUser
 
-os.environ["CUDA_VISIBLE_DEVICES"]="1" #"0,1,2,3"
+os.environ["CUDA_VISIBLE_DEVICES"]="0" #"0,1,2,3"
 executor = ProcessPoolExecutor(1)
 
 class StreamingRTMP:
@@ -84,8 +84,9 @@ class StreamingRTMP:
         self.writetime = 0
     
     def __del__(self):
-        self.p1.kill()
-        self.p1.wait(timeout=3)
+        if self.p1:
+            self.p1.kill()
+            self.p1.wait(timeout=3)
 
     def run(self):
         self.loop.run_until_complete(
@@ -128,7 +129,8 @@ class StreamingRTMP:
         return device
 
     def setMTCNN(self):
-        return MTCNN(margin=20,min_face_size=50,device=self.device)
+        # return MTCNN(margin=20,min_face_size=50,device=self.device)
+        return MTCNN(margin=20,min_face_size=40,device=self.device)
 
     def setARCFACE(self):
         model = resnet_face18(False)
